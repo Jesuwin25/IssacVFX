@@ -1,2 +1,5 @@
 # Video assets (served from Cloudflare R2, not the repo)
 Asset/
+
+# Deploy output (only index.html gets copied here for Cloudflare Pages)
+dist/
