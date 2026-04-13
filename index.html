@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IssacVFX | Issac Immanuel — 3D Generalist & VFX Artist</title>
+    <meta name="description"
+        content="Portfolio of Issac Immanuel — 3D Generalist & VFX Artist specializing in modeling, lighting, compositing, and visual effects." />
+    <meta property="og:title" content="IssacVFX | Issac Immanuel" />
+    <meta property="og:description" content="3D Generalist & VFX Artist Portfolio" />
+    <meta property="og:type" content="website" />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@200;400;600;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed": "#ffffff",
+                        "on-surface": "#e2e2e2",
+                        "primary-fixed": "#5d5f5f",
+                        "on-secondary-container": "#e2e2e2",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "secondary-fixed": "#c6c6c7",
+                        "inverse-on-surface": "#303030",
+                        "surface-tint": "#c6c6c7",
+                        "surface-container-high": "#2a2a2a",
+                        "on-secondary": "#1a1c1c",
+                        "inverse-primary": "#5d5f5f",
+                        "surface-container-highest": "#353535",
+                        "on-primary-fixed": "#ffffff",
+                        "surface-variant": "#353535",
+                        "primary": "#ffffff",
+                        "surface-container": "#1f1f1f",
+                        "on-secondary-fixed-variant": "#3a3c3c",
+                        "background": "#000000",
+                        "on-primary-fixed-variant": "#e2e2e2",
+                        "error-container": "#93000a",
+                        "secondary-container": "#454747",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-container": "#000000",
+                        "primary-container": "#d4d4d4",
+                        "secondary-fixed-dim": "#aaabab",
+                        "secondary": "#c6c6c7",
+                        "on-primary-container": "#000000",
+                        "on-surface-variant": "#c6c6c6",
+                        "tertiary": "#e2e2e2",
+                        "on-tertiary": "#1a1c1c",
+                        "tertiary-fixed": "#5d5f5f",
+                        "surface-dim": "#131313",
+                        "surface-bright": "#393939",
+                        "primary-fixed-dim": "#454747",
+                        "surface-container-lowest": "#0e0e0e",
+                        "outline-variant": "#474747",
+                        "surface": "#131313",
+                        "on-background": "#e2e2e2",
+                        "outline": "#919191",
+                        "tertiary-fixed-dim": "#454747",
+                        "on-tertiary-fixed-variant": "#e2e2e2",
+                        "inverse-surface": "#e2e2e2",
+                        "surface-container-low": "#1b1b1b",
+                        "on-error": "#690005",
+                        "on-primary": "#1a1c1c",
+                        "tertiary-container": "#909191",
+                        "error": "#ffb4ab"
+                    },
+                    borderRadius: {
+                        DEFAULT: "1rem",
+                        lg: "2rem",
+                        xl: "3rem",
+                        full: "9999px"
+                    },
+                    fontFamily: {
+                        serif: ["Instrument Serif", "serif"],
+                        sans: ["Manrope", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #000000;
+            color: #e2e2e2;
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+            min-height: 100dvh;
+        }
+
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .liquid-glass-glow {
+            box-shadow: 0 0 60px rgba(255, 255, 255, 0.03);
+        }
+
+        .serif-italic {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+        }
+
+        .serif-regular {
+            font-family: 'Instrument Serif', serif;
+        }
+
+        .gradient-fade-divider {
+            height: 1px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+        }
+
+        .hero-video-mask {
+            mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="bg-background">
+
+    <!-- ===================== NAVIGATION ===================== -->
+    <nav class="fixed top-0 left-0 right-0 z-50 flex justify-center items-center px-4 md:px-8 pointer-events-none">
+        <div
+            class="pointer-events-auto liquid-glass rounded-full mt-6 mx-auto w-fit px-4 md:px-6 py-2 flex items-center gap-4 md:gap-8 transition-all duration-300 hover:scale-[1.02]">
+            <a href="#"
+                class="text-xl md:text-2xl font-serif italic text-white tracking-tight whitespace-nowrap">IssacVFX</a>
+            <div class="hidden md:flex items-center gap-6">
+                <a href="#works"
+                    class="text-sm font-sans uppercase tracking-widest text-white/60 hover:text-white transition-colors">Works</a>
+                <a href="#about"
+                    class="text-sm font-sans uppercase tracking-widest text-white/60 hover:text-white transition-colors">About</a>
+                <a href="#contact"
+                    class="text-sm font-sans uppercase tracking-widest text-white/60 hover:text-white transition-colors">Contact</a>
+            </div>
+            <a href="mailto:issac@example.com"
+                class="bg-white text-black px-4 md:px-5 py-1.5 rounded-full text-sm font-bold transition-transform active:scale-95 whitespace-nowrap">Hire
+                Me</a>
+        </div>
+    </nav>
+
+
+    <!-- ===================== HERO ===================== -->
+    <section class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+        <!-- Background Video -->
+        <div class="absolute inset-0 z-0">
+            <!--
+            HERO VIDEO — replace the src below with your Cloudflare R2 URL
+            e.g. https://videos.issacvfx.com/hero-reel.mp4
+        -->
+            <video id="hero-video" autoplay loop muted playsinline
+                class="w-full h-full object-cover opacity-60 hero-video-mask">
+                <source src="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/HeroSectionVideo.mp4" type="video/mp4" />
+            </video>
+            <!-- Gradient fallback (visible when no video is loaded) -->
+            <div id="hero-fallback"
+                class="absolute inset-0 bg-gradient-to-b from-surface-container-high via-background to-background transition-opacity duration-1000">
+            </div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-6 max-w-5xl">
+            <h1 class="text-6xl md:text-8xl lg:text-9xl serif-regular text-white leading-none tracking-tighter mb-6">
+                Issac <span class="serif-italic opacity-80">Immanuel</span>
+            </h1>
+            <p class="text-sm md:text-base font-sans uppercase tracking-[0.3em] text-white/40">
+                3D Generalist &amp; VFX Artist
+            </p>
+        </div>
+
+        <!-- Social Links -->
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4 z-10">
+            <a href="#" title="ArtStation"
+                class="liquid-glass w-12 h-12 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110">
+                <span class="material-symbols-outlined">palette</span>
+            </a>
+            <a href="#" title="Instagram"
+                class="liquid-glass w-12 h-12 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110">
+                <span class="material-symbols-outlined">photo_camera</span>
+            </a>
+            <a href="#" title="LinkedIn"
+                class="liquid-glass w-12 h-12 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110">
+                <span class="material-symbols-outlined">person</span>
+            </a>
+        </div>
+    </section>
+
+
+    <!-- ===================== ABOUT ===================== -->
+    <section id="about" class="py-40 px-8 max-w-7xl mx-auto flex flex-col items-center text-center fade-up">
+        <span class="font-sans text-xs uppercase tracking-[0.3em] text-white/40 mb-8">About</span>
+        <h2 class="text-3xl md:text-5xl lg:text-6xl serif-regular leading-tight max-w-4xl text-white/60">
+            Bringing <span class="serif-italic text-white">imagination</span> to life through
+            digital artistry — crafting worlds that feel
+            <span class="serif-italic text-white">real</span>.
+        </h2>
+    </section>
+
+
+    <!-- ===================== SHOWREEL ===================== -->
+    <section class="px-8 pb-40 max-w-7xl mx-auto fade-up">
+        <div class="relative aspect-video rounded-lg overflow-hidden group">
+            <!--
+            SHOWREEL VIDEO — replace src with Cloudflare R2 URL
+        -->
+            <video autoplay loop muted playsinline
+                class="w-full h-full object-cover scale-105 transition-transform duration-[2s] group-hover:scale-100">
+                <source src="" type="video/mp4" />
+            </video>
+            <!-- Fallback gradient -->
+            <div class="absolute inset-0 bg-gradient-to-br from-surface-container to-surface-dim"></div>
+            <!-- Glass Overlay -->
+            <div class="absolute bottom-6 left-6 md:bottom-12 md:left-12 max-w-sm">
+                <div class="liquid-glass p-6 md:p-8 rounded-lg liquid-glass-glow">
+                    <span class="font-sans text-xs uppercase tracking-widest text-white/40 block mb-4">Showreel</span>
+                    <p class="text-white/80 leading-relaxed font-sans text-sm">
+                        A curated selection of 3D modeling, lighting, compositing, and visual effects work.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===================== EXPERTISE ===================== -->
+    <section class="py-40 px-8 bg-surface-container-low fade-up">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl md:text-7xl serif-regular text-white mb-24">
+                Craft <span class="serif-italic text-white/40">&amp;</span> Vision
+            </h2>
+            <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+                <div
+                    class="rounded-lg overflow-hidden h-[400px] md:h-[500px] bg-gradient-to-br from-surface-container to-background">
+                    <!--
+                    EXPERTISE VIDEO — replace src with Cloudflare R2 URL
+                -->
+                    <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                        <source src="" type="video/mp4" />
+                    </video>
+                </div>
+                <div class="space-y-16 py-4 md:py-12">
+                    <div>
+                        <h3 class="serif-regular text-3xl text-white mb-6">3D Modeling &amp; Sculpting</h3>
+                        <div class="gradient-fade-divider mb-6"></div>
+                        <p class="text-white/40 font-sans leading-relaxed">
+                            From hard-surface to organic forms — building detailed, production-ready
+                            assets that hold up at every angle and every scale.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="serif-regular text-3xl text-white mb-6">Lighting &amp; Compositing</h3>
+                        <div class="gradient-fade-divider mb-6"></div>
+                        <p class="text-white/40 font-sans leading-relaxed">
+                            Setting the mood and grounding the render. Precise lighting setups
+                            and seamless compositing that bring the final image together.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===================== SELECTED WORKS ===================== -->
+    <!--
+    Each card uses data-video="" for the R2 video URL.
+    Once you set a URL, clicking the card loads and plays the video.
+    Without a URL the play button is just decorative.
+-->
+    <section id="works" class="py-40 px-8 max-w-7xl mx-auto">
+        <h2 class="text-5xl md:text-7xl serif-regular text-white mb-24 fade-up">
+            Selected <span class="serif-italic text-white/40">Works</span>
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+            <!-- Card 1 -->
+            <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
+                data-video="">
+                <div class="relative h-72 md:h-80 overflow-hidden">
+                    <div
+                        class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
+                        <div
+                            class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl text-white/60">play_arrow</span>
+                        </div>
+                    </div>
+                    <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
+                </div>
+                <div class="p-8 md:p-12">
+                    <span class="font-sans text-xs uppercase tracking-widest text-white/40 mb-4 block">Character</span>
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white mb-4">Project Title</h4>
+                    <p class="text-white/50 font-sans text-sm">Character modeling and texturing for a cinematic short.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
+                data-video="">
+                <div class="relative h-72 md:h-80 overflow-hidden">
+                    <div
+                        class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
+                        <div
+                            class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl text-white/60">play_arrow</span>
+                        </div>
+                    </div>
+                    <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
+                </div>
+                <div class="p-8 md:p-12">
+                    <span
+                        class="font-sans text-xs uppercase tracking-widest text-white/40 mb-4 block">Environment</span>
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white mb-4">Project Title</h4>
+                    <p class="text-white/50 font-sans text-sm">Full environment design and rendering for an immersive
+                        world.</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
+                data-video="">
+                <div class="relative h-72 md:h-80 overflow-hidden">
+                    <div
+                        class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
+                        <div
+                            class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl text-white/60">play_arrow</span>
+                        </div>
+                    </div>
+                    <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
+                </div>
+                <div class="p-8 md:p-12">
+                    <span class="font-sans text-xs uppercase tracking-widest text-white/40 mb-4 block">Motion</span>
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white mb-4">Project Title</h4>
+                    <p class="text-white/50 font-sans text-sm">Motion graphics and animation for a brand campaign.</p>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
+                data-video="">
+                <div class="relative h-72 md:h-80 overflow-hidden">
+                    <div
+                        class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
+                        <div
+                            class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl text-white/60">play_arrow</span>
+                        </div>
+                    </div>
+                    <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
+                </div>
+                <div class="p-8 md:p-12">
+                    <span class="font-sans text-xs uppercase tracking-widest text-white/40 mb-4 block">VFX</span>
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white mb-4">Project Title</h4>
+                    <p class="text-white/50 font-sans text-sm">Visual effects compositing and simulation work.</p>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
+                data-video="">
+                <div class="relative h-72 md:h-80 overflow-hidden">
+                    <div
+                        class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
+                        <div
+                            class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl text-white/60">play_arrow</span>
+                        </div>
+                    </div>
+                    <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
+                </div>
+                <div class="p-8 md:p-12">
+                    <span class="font-sans text-xs uppercase tracking-widest text-white/40 mb-4 block">Product</span>
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white mb-4">Project Title</h4>
+                    <p class="text-white/50 font-sans text-sm">Photorealistic product visualization and rendering.</p>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
+                data-video="">
+                <div class="relative h-72 md:h-80 overflow-hidden">
+                    <div
+                        class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
+                        <div
+                            class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl text-white/60">play_arrow</span>
+                        </div>
+                    </div>
+                    <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
+                </div>
+                <div class="p-8 md:p-12">
+                    <span class="font-sans text-xs uppercase tracking-widest text-white/40 mb-4 block">Lighting</span>
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white mb-4">Project Title</h4>
+                    <p class="text-white/50 font-sans text-sm">Cinematic lighting study and scene composition.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer id="contact" class="bg-black border-t border-white/5 py-24 px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="flex flex-col items-center md:items-start gap-4">
+                <div class="text-3xl font-serif italic text-white tracking-tight">IssacVFX</div>
+                <p class="font-sans text-sm text-white/40 uppercase tracking-widest">&copy; 2026 Issac Immanuel. All
+                    rights reserved.</p>
+            </div>
+            <div class="flex gap-8 md:gap-12 flex-wrap justify-center">
+                <a href="#"
+                    class="font-sans text-sm tracking-widest uppercase text-white/40 hover:text-white transition-colors duration-300">ArtStation</a>
+                <a href="#"
+                    class="font-sans text-sm tracking-widest uppercase text-white/40 hover:text-white transition-colors duration-300">Instagram</a>
+                <a href="#"
+                    class="font-sans text-sm tracking-widest uppercase text-white/40 hover:text-white transition-colors duration-300">LinkedIn</a>
+                <a href="#"
+                    class="font-sans text-sm tracking-widest uppercase text-white/40 hover:text-white transition-colors duration-300">Behance</a>
+            </div>
+            <div class="liquid-glass rounded-full px-4 py-2 flex items-center gap-3">
+                <div class="w-2 h-2 rounded-full bg-white animate-pulse"></div>
+                <span class="text-[10px] font-sans uppercase tracking-[0.2em] text-white/60">Available for Work</span>
+            </div>
+        </div>
+    </footer>
+
+    <div class="fixed bottom-0 left-0 w-full h-[1px] gradient-fade-divider pointer-events-none opacity-20"></div>
+
+
+    <!-- ===================== SCRIPTS ===================== -->
+    <script>
+        // Fade-in on scroll
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+        // Portfolio cards — click to play / pause
+        document.querySelectorAll('.portfolio-card').forEach(card => {
+            const poster = card.querySelector('.poster');
+            const video = card.querySelector('video');
+            const src = card.dataset.video;
+
+            if (!src) return; // no video URL yet — skip
+
+            card.addEventListener('click', () => {
+                if (!video.src || video.paused) {
+                    video.src = src;
+                    poster.style.opacity = '0';
+                    video.play();
+                } else {
+                    video.pause();
+                    video.removeAttribute('src');
+                    video.load();
+                    poster.style.opacity = '1';
+                }
+            });
+        });
+
+        // Hide hero fallback gradient once video loads
+        const heroVideo = document.getElementById('hero-video');
+        const heroFallback = document.getElementById('hero-fallback');
+        if (heroVideo && heroFallback) {
+            heroVideo.addEventListener('loadeddata', () => {
+                heroFallback.style.opacity = '0';
+            });
+        }
+    </script>
+
+</body>
+
+</html>
