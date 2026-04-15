@@ -141,6 +141,40 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Project modal */
+        .project-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            overflow-y: auto;
+        }
+
+        .project-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .project-modal-inner {
+            transform: scale(0.96) translateY(20px);
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+        }
+
+        .project-modal.open .project-modal-inner {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
     </style>
 </head>
 
@@ -160,7 +194,7 @@
                 <a href="#contact"
                     class="text-sm font-sans uppercase tracking-widest text-white/60 hover:text-white transition-colors">Contact</a>
             </div>
-            <a href="mailto:issac@example.com"
+            <a href="mailto:issacvfxofficial@gmail.com"
                 class="bg-white text-black px-4 md:px-5 py-1.5 rounded-full text-sm font-bold transition-transform active:scale-95 whitespace-nowrap">Hire
                 Me</a>
         </div>
@@ -213,77 +247,19 @@
     </section>
 
 
-    <!-- ===================== ABOUT ===================== -->
-    <section id="about" class="py-40 px-8 max-w-7xl mx-auto flex flex-col items-center text-center fade-up">
-        <span class="font-sans text-xs uppercase tracking-[0.3em] text-white/40 mb-8">About</span>
-        <h2 class="text-3xl md:text-5xl lg:text-6xl serif-regular leading-tight max-w-4xl text-white/60">
-            Bringing <span class="serif-italic text-white">imagination</span> to life through
-            digital artistry — crafting worlds that feel
-            <span class="serif-italic text-white">real</span>.
+    <!-- ===================== ABOUT / SHOWREEL ===================== -->
+    <section id="about" class="pt-24 pb-40 px-8 max-w-7xl mx-auto fade-up">
+        <h2
+            class="text-xl sm:text-2xl md:text-4xl lg:text-5xl serif-regular leading-tight mx-auto text-center text-white/60 mb-16 whitespace-nowrap">
+            <span class="block">Bringing <span class="serif-italic text-white">imagination</span> to life through
+                digital artistry</span>
+            <span class="block"> crafting worlds that feel <span class="serif-italic text-white">real</span>.</span>
         </h2>
-    </section>
-
-
-    <!-- ===================== SHOWREEL ===================== -->
-    <section class="px-8 pb-40 max-w-7xl mx-auto fade-up">
-        <div class="relative aspect-video rounded-lg overflow-hidden group">
-            <!--
-            SHOWREEL VIDEO — replace src with Cloudflare R2 URL
-        -->
-            <video autoplay loop muted playsinline
-                class="w-full h-full object-cover scale-105 transition-transform duration-[2s] group-hover:scale-100">
-                <source src="" type="video/mp4" />
+        <div class="relative aspect-video rounded-lg overflow-hidden">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                <source src="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/showreel_v1.mp4" type="video/mp4" />
             </video>
-            <!-- Fallback gradient -->
-            <div class="absolute inset-0 bg-gradient-to-br from-surface-container to-surface-dim"></div>
-            <!-- Glass Overlay -->
-            <div class="absolute bottom-6 left-6 md:bottom-12 md:left-12 max-w-sm">
-                <div class="liquid-glass p-6 md:p-8 rounded-lg liquid-glass-glow">
-                    <span class="font-sans text-xs uppercase tracking-widest text-white/40 block mb-4">Showreel</span>
-                    <p class="text-white/80 leading-relaxed font-sans text-sm">
-                        A curated selection of 3D modeling, lighting, compositing, and visual effects work.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- ===================== EXPERTISE ===================== -->
-    <section class="py-40 px-8 bg-surface-container-low fade-up">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-5xl md:text-7xl serif-regular text-white mb-24">
-                Craft <span class="serif-italic text-white/40">&amp;</span> Vision
-            </h2>
-            <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
-                <div
-                    class="rounded-lg overflow-hidden h-[400px] md:h-[500px] bg-gradient-to-br from-surface-container to-background">
-                    <!--
-                    EXPERTISE VIDEO — replace src with Cloudflare R2 URL
-                -->
-                    <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                        <source src="" type="video/mp4" />
-                    </video>
-                </div>
-                <div class="space-y-16 py-4 md:py-12">
-                    <div>
-                        <h3 class="serif-regular text-3xl text-white mb-6">3D Modeling &amp; Sculpting</h3>
-                        <div class="gradient-fade-divider mb-6"></div>
-                        <p class="text-white/40 font-sans leading-relaxed">
-                            From hard-surface to organic forms — building detailed, production-ready
-                            assets that hold up at every angle and every scale.
-                        </p>
-                    </div>
-                    <div>
-                        <h3 class="serif-regular text-3xl text-white mb-6">Lighting &amp; Compositing</h3>
-                        <div class="gradient-fade-divider mb-6"></div>
-                        <p class="text-white/40 font-sans leading-relaxed">
-                            Setting the mood and grounding the render. Precise lighting setups
-                            and seamless compositing that bring the final image together.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <div class="absolute inset-0 bg-gradient-to-br from-surface-container to-surface-dim -z-10"></div>
         </div>
     </section>
 
@@ -295,15 +271,13 @@
     Without a URL the play button is just decorative.
 -->
     <section id="works" class="py-40 px-8 max-w-7xl mx-auto">
-        <h2 class="text-5xl md:text-7xl serif-regular text-white mb-24 fade-up">
-            Selected <span class="serif-italic text-white/40">Works</span>
-        </h2>
+        <h2 class="text-5xl md:text-7xl serif-regular text-white mb-24 fade-up">Projects</h2>
 
-        <div class="grid md:grid-cols-2 gap-8">
+        <div
+            class="flex flex-wrap justify-center gap-8 [&>div]:w-full [&>div]:md:w-[calc(50%-1rem)] [&>div]:lg:w-[calc(33.333%-1.334rem)]">
 
-            <!-- Card 1 -->
             <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
-                data-video="">
+                data-slug="cat-2023" data-video="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/CAT_2023_v1.mp4">
                 <div class="relative h-72 md:h-80 overflow-hidden">
                     <div
                         class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
@@ -315,16 +289,12 @@
                     <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
                 </div>
                 <div class="p-8 md:p-12">
-                    <span class="font-sans text-xs uppercase tracking-widest text-white/40 mb-4 block">Character</span>
-                    <h4 class="text-3xl md:text-4xl serif-regular text-white mb-4">Project Title</h4>
-                    <p class="text-white/50 font-sans text-sm">Character modeling and texturing for a cinematic short.
-                    </p>
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white">CAT 2023</h4>
                 </div>
             </div>
 
-            <!-- Card 2 -->
             <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
-                data-video="">
+                data-slug="chikki" data-video="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/chikki_v1.mp4">
                 <div class="relative h-72 md:h-80 overflow-hidden">
                     <div
                         class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
@@ -336,17 +306,12 @@
                     <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
                 </div>
                 <div class="p-8 md:p-12">
-                    <span
-                        class="font-sans text-xs uppercase tracking-widest text-white/40 mb-4 block">Environment</span>
-                    <h4 class="text-3xl md:text-4xl serif-regular text-white mb-4">Project Title</h4>
-                    <p class="text-white/50 font-sans text-sm">Full environment design and rendering for an immersive
-                        world.</p>
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white">Chikki</h4>
                 </div>
             </div>
 
-            <!-- Card 3 -->
             <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
-                data-video="">
+                data-slug="citrus" data-video="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/citrus_v1.MP4">
                 <div class="relative h-72 md:h-80 overflow-hidden">
                     <div
                         class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
@@ -358,15 +323,13 @@
                     <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
                 </div>
                 <div class="p-8 md:p-12">
-                    <span class="font-sans text-xs uppercase tracking-widest text-white/40 mb-4 block">Motion</span>
-                    <h4 class="text-3xl md:text-4xl serif-regular text-white mb-4">Project Title</h4>
-                    <p class="text-white/50 font-sans text-sm">Motion graphics and animation for a brand campaign.</p>
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white">Citrus</h4>
                 </div>
             </div>
 
-            <!-- Card 4 -->
             <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
-                data-video="">
+                data-slug="frozen-bottle"
+                data-video="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/frozenbottle_v1.mp4">
                 <div class="relative h-72 md:h-80 overflow-hidden">
                     <div
                         class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
@@ -378,15 +341,12 @@
                     <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
                 </div>
                 <div class="p-8 md:p-12">
-                    <span class="font-sans text-xs uppercase tracking-widest text-white/40 mb-4 block">VFX</span>
-                    <h4 class="text-3xl md:text-4xl serif-regular text-white mb-4">Project Title</h4>
-                    <p class="text-white/50 font-sans text-sm">Visual effects compositing and simulation work.</p>
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white">Frozen Bottle</h4>
                 </div>
             </div>
 
-            <!-- Card 5 -->
             <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
-                data-video="">
+                data-slug="hyd-vik" data-video="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/hyd_vik_v1.mp4">
                 <div class="relative h-72 md:h-80 overflow-hidden">
                     <div
                         class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
@@ -398,15 +358,12 @@
                     <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
                 </div>
                 <div class="p-8 md:p-12">
-                    <span class="font-sans text-xs uppercase tracking-widest text-white/40 mb-4 block">Product</span>
-                    <h4 class="text-3xl md:text-4xl serif-regular text-white mb-4">Project Title</h4>
-                    <p class="text-white/50 font-sans text-sm">Photorealistic product visualization and rendering.</p>
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white">Hyd Vik</h4>
                 </div>
             </div>
 
-            <!-- Card 6 -->
             <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
-                data-video="">
+                data-slug="kite" data-video="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/kite_v1.mp4">
                 <div class="relative h-72 md:h-80 overflow-hidden">
                     <div
                         class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
@@ -418,14 +375,161 @@
                     <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
                 </div>
                 <div class="p-8 md:p-12">
-                    <span class="font-sans text-xs uppercase tracking-widest text-white/40 mb-4 block">Lighting</span>
-                    <h4 class="text-3xl md:text-4xl serif-regular text-white mb-4">Project Title</h4>
-                    <p class="text-white/50 font-sans text-sm">Cinematic lighting study and scene composition.</p>
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white">Kite</h4>
+                </div>
+            </div>
+
+            <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
+                data-slug="lakahfay" data-video="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/lakahfay_v1.mp4">
+                <div class="relative h-72 md:h-80 overflow-hidden">
+                    <div
+                        class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
+                        <div
+                            class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl text-white/60">play_arrow</span>
+                        </div>
+                    </div>
+                    <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
+                </div>
+                <div class="p-8 md:p-12">
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white">Lakahfay</h4>
+                </div>
+            </div>
+
+            <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
+                data-slug="little-scholars"
+                data-video="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/LITTLE%20SCHOLARS_v1.mp4">
+                <div class="relative h-72 md:h-80 overflow-hidden">
+                    <div
+                        class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
+                        <div
+                            class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl text-white/60">play_arrow</span>
+                        </div>
+                    </div>
+                    <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
+                </div>
+                <div class="p-8 md:p-12">
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white">Little Scholars</h4>
+                </div>
+            </div>
+
+            <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
+                data-slug="personal-project"
+                data-video="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/personal_pj_v1.mp4">
+                <div class="relative h-72 md:h-80 overflow-hidden">
+                    <div
+                        class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
+                        <div
+                            class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl text-white/60">play_arrow</span>
+                        </div>
+                    </div>
+                    <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
+                </div>
+                <div class="p-8 md:p-12">
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white">Personal Project</h4>
+                </div>
+            </div>
+
+            <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
+                data-slug="pure" data-video="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/Pure_v1.mp4">
+                <div class="relative h-72 md:h-80 overflow-hidden">
+                    <div
+                        class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
+                        <div
+                            class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl text-white/60">play_arrow</span>
+                        </div>
+                    </div>
+                    <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
+                </div>
+                <div class="p-8 md:p-12">
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white">Pure</h4>
+                </div>
+            </div>
+
+            <div class="portfolio-card liquid-glass rounded-lg overflow-hidden group hover:scale-[1.01] transition-transform duration-500 cursor-pointer fade-up"
+                data-slug="vgn" data-video="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/vgn_v1.mp4">
+                <div class="relative h-72 md:h-80 overflow-hidden">
+                    <div
+                        class="poster absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-dim flex items-center justify-center transition-opacity duration-500 z-10">
+                        <div
+                            class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl text-white/60">play_arrow</span>
+                        </div>
+                    </div>
+                    <video class="w-full h-full object-cover" preload="none" muted playsinline loop></video>
+                </div>
+                <div class="p-8 md:p-12">
+                    <h4 class="text-3xl md:text-4xl serif-regular text-white">VGN</h4>
                 </div>
             </div>
 
         </div>
     </section>
+
+
+    <!-- ===================== PROJECT MODAL ===================== -->
+    <div id="project-modal" class="project-modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <button id="modal-close" aria-label="Close"
+            class="fixed top-6 right-6 z-10 liquid-glass w-12 h-12 rounded-full flex items-center justify-center text-white/80 hover:text-white hover:scale-110 transition-all">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+
+        <div class="project-modal-inner max-w-7xl mx-auto px-4 md:px-8 py-20 md:py-24">
+            <!-- Video player -->
+            <div class="relative aspect-video w-full rounded-lg overflow-hidden bg-black mb-12 md:mb-16">
+                <video id="modal-video" class="w-full h-full object-contain" controls playsinline
+                    preload="metadata"></video>
+            </div>
+
+            <!-- Details -->
+            <div class="grid md:grid-cols-3 gap-10 md:gap-16">
+                <div class="md:col-span-2">
+                    <span id="modal-category"
+                        class="font-sans text-xs uppercase tracking-[0.3em] text-white/40 mb-4 block">Category</span>
+                    <h3 id="modal-title" class="text-4xl md:text-6xl serif-regular text-white leading-tight mb-8">
+                        Project Title</h3>
+                    <div class="gradient-fade-divider mb-8"></div>
+                    <p id="modal-description"
+                        class="text-white/60 font-sans leading-relaxed text-base md:text-lg max-w-2xl">
+                        Description placeholder — a short write-up about the project, the brief, the approach, and the
+                        outcome.
+                    </p>
+                </div>
+
+                <aside class="space-y-8">
+                    <div>
+                        <span
+                            class="font-sans text-xs uppercase tracking-[0.25em] text-white/40 block mb-2">Client</span>
+                        <p id="modal-client" class="font-sans text-white/80">—</p>
+                    </div>
+                    <div>
+                        <span class="font-sans text-xs uppercase tracking-[0.25em] text-white/40 block mb-2">Year</span>
+                        <p id="modal-year" class="font-sans text-white/80">—</p>
+                    </div>
+                    <div>
+                        <span class="font-sans text-xs uppercase tracking-[0.25em] text-white/40 block mb-2">Role</span>
+                        <p id="modal-role" class="font-sans text-white/80">—</p>
+                    </div>
+                    <div>
+                        <span
+                            class="font-sans text-xs uppercase tracking-[0.25em] text-white/40 block mb-2">Software</span>
+                        <p id="modal-software" class="font-sans text-white/80">—</p>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Credits -->
+            <div class="mt-16 md:mt-24">
+                <span class="font-sans text-xs uppercase tracking-[0.3em] text-white/40 mb-6 block">Credits</span>
+                <div class="gradient-fade-divider mb-8"></div>
+                <ul id="modal-credits"
+                    class="grid sm:grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-4 font-sans text-white/70"></ul>
+            </div>
+        </div>
+    </div>
 
 
     <!-- ===================== FOOTER ===================== -->
@@ -469,26 +573,116 @@
 
         document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
 
-        // Portfolio cards — click to play / pause
-        document.querySelectorAll('.portfolio-card').forEach(card => {
-            const poster = card.querySelector('.poster');
-            const video = card.querySelector('video');
-            const src = card.dataset.video;
+        // ===== PROJECT DATA =====
+        // Fill in real values as they come; placeholders below.
+        const PROJECTS = {
+            "cat-2023": { title: "CAT 2023", category: "Placeholder", client: "—", year: "—", role: "—", software: "—", description: "Description placeholder.", credits: [] },
+            "chikki": { title: "Chikki", category: "Placeholder", client: "—", year: "—", role: "—", software: "—", description: "Description placeholder.", credits: [] },
+            "citrus": { title: "Citrus", category: "Placeholder", client: "—", year: "—", role: "—", software: "—", description: "Description placeholder.", credits: [] },
+            "frozen-bottle": { title: "Frozen Bottle", category: "Placeholder", client: "—", year: "—", role: "—", software: "—", description: "Description placeholder.", credits: [] },
+            "hyd-vik": { title: "Hyd Vik", category: "Placeholder", client: "—", year: "—", role: "—", software: "—", description: "Description placeholder.", credits: [] },
+            "kite": { title: "Kite", category: "Placeholder", client: "—", year: "—", role: "—", software: "—", description: "Description placeholder.", credits: [] },
+            "lakahfay": { title: "Lakahfay", category: "Placeholder", client: "—", year: "—", role: "—", software: "—", description: "Description placeholder.", credits: [] },
+            "little-scholars": { title: "Little Scholars", category: "Placeholder", client: "—", year: "—", role: "—", software: "—", description: "Description placeholder.", credits: [] },
+            "personal-project": { title: "Personal Project", category: "Placeholder", client: "—", year: "—", role: "—", software: "—", description: "Description placeholder.", credits: [] },
+            "pure": { title: "Pure", category: "Placeholder", client: "—", year: "—", role: "—", software: "—", description: "Description placeholder.", credits: [] },
+            "vgn": { title: "VGN", category: "Placeholder", client: "—", year: "—", role: "—", software: "—", description: "Description placeholder.", credits: [] }
+        };
 
-            if (!src) return; // no video URL yet — skip
+        // ===== MODAL =====
+        const modal = document.getElementById('project-modal');
+        const modalVideo = document.getElementById('modal-video');
+        const modalClose = document.getElementById('modal-close');
+        const fields = {
+            title: document.getElementById('modal-title'),
+            category: document.getElementById('modal-category'),
+            description: document.getElementById('modal-description'),
+            client: document.getElementById('modal-client'),
+            year: document.getElementById('modal-year'),
+            role: document.getElementById('modal-role'),
+            software: document.getElementById('modal-software'),
+            credits: document.getElementById('modal-credits')
+        };
 
-            card.addEventListener('click', () => {
-                if (!video.src || video.paused) {
-                    video.src = src;
-                    poster.style.opacity = '0';
-                    video.play();
-                } else {
-                    video.pause();
-                    video.removeAttribute('src');
-                    video.load();
-                    poster.style.opacity = '1';
-                }
+        function openProject(slug, videoUrl) {
+            const data = PROJECTS[slug] || {};
+            fields.title.textContent = data.title || 'Untitled';
+            fields.category.textContent = data.category || '—';
+            fields.description.textContent = data.description || '';
+            fields.client.textContent = data.client || '—';
+            fields.year.textContent = data.year || '—';
+            fields.role.textContent = data.role || '—';
+            fields.software.textContent = data.software || '—';
+
+            fields.credits.innerHTML = '';
+            (data.credits || []).forEach(c => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="text-white/40 text-xs uppercase tracking-widest block">${c.role || ''}</span><span>${c.name || ''}</span>`;
+                fields.credits.appendChild(li);
             });
+            if (!(data.credits && data.credits.length)) {
+                fields.credits.innerHTML = '<li class="text-white/40">Credits coming soon.</li>';
+            }
+
+            modalVideo.src = videoUrl;
+            modalVideo.currentTime = 0;
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+            setTimeout(() => { modalVideo.play().catch(() => { }); }, 400);
+        }
+
+        function closeProject() {
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+            modalVideo.pause();
+            modalVideo.removeAttribute('src');
+            modalVideo.load();
+        }
+
+        modalClose.addEventListener('click', closeProject);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeProject(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeProject(); });
+
+        // Per-project thumbnail timestamp override (seconds). Default is 2s.
+        const THUMB_TIMES = {
+            "cat-2023": 6,
+            "personal-project": 4
+        };
+
+        // Portfolio cards — seek to a representative frame + click to open modal
+        document.querySelectorAll('.portfolio-card').forEach(card => {
+            const src = card.dataset.video;
+            const slug = card.dataset.slug;
+            const video = card.querySelector('video');
+            const poster = card.querySelector('.poster');
+            if (!src) return;
+
+            video.muted = true;
+            video.playsInline = true;
+            video.preload = 'metadata';
+            video.src = src;
+
+            const thumbTime = THUMB_TIMES[slug] ?? 2;
+
+            video.addEventListener('loadedmetadata', () => {
+                const seekTo = Math.min(thumbTime, Math.max(0, video.duration - 0.1));
+                try { video.currentTime = seekTo; } catch (e) { }
+            }, { once: true });
+
+            video.addEventListener('seeked', () => {
+                poster.style.background = 'transparent';
+            }, { once: true });
+
+            card.addEventListener('mouseenter', () => { video.play().catch(() => { }); });
+            card.addEventListener('mouseleave', () => {
+                video.pause();
+                const seekTo = Math.min(thumbTime, Math.max(0, video.duration - 0.1));
+                try { video.currentTime = seekTo; } catch (e) { }
+            });
+
+            card.addEventListener('click', () => openProject(slug, src));
         });
 
         // Hide hero fallback gradient once video loads
