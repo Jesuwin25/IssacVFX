@@ -175,15 +175,41 @@
         body.modal-open {
             overflow: hidden;
         }
+
+        /* Mobile menu open state */
+        #mobile-menu.open {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Showreel custom player — tap-to-reveal on mobile */
+        #showreel-player.controls-visible #showreel-controls {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        #showreel-player.controls-visible #showreel-center-btn.paused {
+            opacity: 1 !important;
+        }
+
+        #showreel-center-btn.paused {
+            opacity: 1 !important;
+        }
     </style>
 </head>
 
 <body class="bg-background">
 
     <!-- ===================== NAVIGATION ===================== -->
-    <nav class="fixed top-0 left-0 right-0 z-50 flex justify-center items-center px-4 md:px-8 pointer-events-none">
+    <nav class="fixed top-0 left-0 right-0 z-50 flex justify-start md:justify-center items-center px-4 md:px-8 pointer-events-none">
         <div
-            class="pointer-events-auto liquid-glass rounded-full mt-6 mx-auto w-fit px-4 md:px-6 py-2 flex items-center gap-4 md:gap-8 transition-all duration-300 hover:scale-[1.02]">
+            class="pointer-events-auto liquid-glass rounded-full mt-6 w-fit px-4 md:px-6 py-2 flex items-center gap-3 md:gap-8 transition-all duration-300 hover:scale-[1.02]">
+            <button id="mobile-menu-btn"
+                class="md:hidden flex items-center justify-center w-6 h-6 text-white/70 hover:text-white transition-colors"
+                aria-label="Open menu" aria-expanded="false">
+                <span class="material-symbols-outlined text-[24px]" id="mobile-menu-icon">menu</span>
+            </button>
             <a href="#"
                 class="text-xl md:text-2xl font-serif italic text-white tracking-tight whitespace-nowrap">IssacVFX</a>
             <div class="hidden md:flex items-center gap-6">
@@ -195,6 +221,19 @@
                     class="text-sm font-sans uppercase tracking-widest text-white/60 hover:text-white transition-colors">Contact</a>
             </div>
         </div>
+
+        <!-- Mobile dropdown menu -->
+        <div id="mobile-menu"
+            class="md:hidden pointer-events-none opacity-0 -translate-y-2 transition-all duration-300 fixed top-[4.5rem] left-4 liquid-glass rounded-lg px-6 py-4">
+            <div class="flex flex-col gap-3 items-start">
+                <a href="#about"
+                    class="text-sm font-sans uppercase tracking-widest text-white/70 hover:text-white transition-colors py-1">About</a>
+                <a href="#works"
+                    class="text-sm font-sans uppercase tracking-widest text-white/70 hover:text-white transition-colors py-1">Works</a>
+                <a href="#contact"
+                    class="text-sm font-sans uppercase tracking-widest text-white/70 hover:text-white transition-colors py-1">Contact</a>
+            </div>
+        </div>
     </nav>
 
 
@@ -202,10 +241,6 @@
     <section class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
         <!-- Background Video -->
         <div class="absolute inset-0 z-0">
-            <!--
-            HERO VIDEO — replace the src below with your Cloudflare R2 URL
-            e.g. https://videos.issacvfx.com/hero-reel.mp4
-        -->
             <video id="hero-video" autoplay loop muted playsinline
                 class="w-full h-full object-cover opacity-60 hero-video-mask">
                 <source src="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/hero_page_v1.mp4" type="video/mp4" />
@@ -229,16 +264,16 @@
         <!-- Social Links -->
         <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4 z-10">
             <a href="https://www.instagram.com/issac.vfx/" target="_blank" rel="noopener" title="Instagram"
-                class="liquid-glass w-12 h-12 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110">
-                <span class="material-symbols-outlined">photo_camera</span>
+                class="liquid-glass w-12 h-12 rounded-full flex items-center justify-center transition-all hover:scale-110">
+                <img src="icons/instagram.png" alt="Instagram" class="w-6 h-6 object-contain opacity-70 hover:opacity-100 transition-opacity" />
             </a>
             <a href="https://www.artstation.com/issac1605" target="_blank" rel="noopener" title="ArtStation"
-                class="liquid-glass w-12 h-12 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110">
-                <span class="material-symbols-outlined">palette</span>
+                class="liquid-glass w-12 h-12 rounded-full flex items-center justify-center transition-all hover:scale-110">
+                <img src="icons/artstation.png" alt="ArtStation" class="w-6 h-6 object-contain opacity-70 hover:opacity-100 transition-opacity" />
             </a>
             <a href="https://x.com/Issac3d" target="_blank" rel="noopener" title="X (Twitter)"
-                class="liquid-glass w-12 h-12 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110">
-                <span class="material-symbols-outlined">alternate_email</span>
+                class="liquid-glass w-12 h-12 rounded-full flex items-center justify-center transition-all hover:scale-110">
+                <img src="icons/x.png" alt="X" class="w-6 h-6 object-contain opacity-70 hover:opacity-100 transition-opacity" />
             </a>
         </div>
     </section>
@@ -252,11 +287,61 @@
                 digital artistry</span>
             <span class="block"> crafting worlds that feel <span class="serif-italic text-white">real</span>.</span>
         </h2>
-        <div class="relative aspect-video rounded-lg overflow-hidden">
-            <video autoplay loop muted playsinline class="w-full h-full object-cover">
+        <div id="showreel-player" class="relative aspect-video rounded-lg overflow-hidden group select-none">
+            <video id="showreel-video" autoplay loop muted playsinline
+                class="w-full h-full object-cover block cursor-pointer">
                 <source src="https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev/showreel_v1.mp4" type="video/mp4" />
             </video>
-            <div class="absolute inset-0 bg-gradient-to-br from-surface-container to-surface-dim -z-10"></div>
+
+            <!-- Center play indicator (appears when paused) -->
+            <button id="showreel-center-btn" aria-label="Play"
+                class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 pointer-events-none">
+                <div class="w-20 h-20 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center">
+                    <span class="material-symbols-outlined text-5xl text-white">play_arrow</span>
+                </div>
+            </button>
+
+            <!-- Bottom controls -->
+            <div id="showreel-controls"
+                class="absolute bottom-0 left-0 right-0 px-4 md:px-6 pt-16 pb-4 md:pb-5 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none md:group-hover:pointer-events-auto">
+
+                <!-- Progress bar -->
+                <div id="showreel-progress" class="relative h-1 bg-white/20 rounded-full cursor-pointer mb-3 group/progress">
+                    <div id="showreel-progress-fill" class="absolute top-0 left-0 h-full bg-white rounded-full"
+                        style="width: 0%"></div>
+                    <div id="showreel-progress-thumb"
+                        class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white opacity-0 group-hover/progress:opacity-100 transition-opacity"
+                        style="left: 0%"></div>
+                </div>
+
+                <!-- Controls row -->
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <button id="showreel-play-btn" aria-label="Play/Pause"
+                            class="text-white/80 hover:text-white transition-colors flex items-center">
+                            <span class="material-symbols-outlined text-[28px]" id="showreel-play-icon">pause</span>
+                        </button>
+                        <span id="showreel-time" class="font-sans text-xs text-white/60 tabular-nums">0:00 / 0:00</span>
+                    </div>
+                    <div class="flex items-center gap-2 group/vol">
+                        <button id="showreel-mute-btn" aria-label="Mute/Unmute"
+                            class="text-white/80 hover:text-white transition-colors flex items-center">
+                            <span class="material-symbols-outlined text-[28px]" id="showreel-mute-icon">volume_off</span>
+                        </button>
+                        <div id="showreel-vol-wrap"
+                            class="w-20 md:w-0 md:group-hover/vol:w-20 overflow-hidden transition-all duration-300">
+                            <div id="showreel-vol-bar"
+                                class="relative h-1 w-20 bg-white/20 rounded-full cursor-pointer group/vb">
+                                <div id="showreel-vol-fill" class="absolute top-0 left-0 h-full bg-white rounded-full"
+                                    style="width: 0%"></div>
+                                <div id="showreel-vol-thumb"
+                                    class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white opacity-0 group-hover/vb:opacity-100 transition-opacity"
+                                    style="left: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Expertise — card layout -->
@@ -669,8 +754,8 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             <a href="https://www.instagram.com/issac.vfx/" target="_blank" rel="noopener"
                 class="fade-up liquid-glass rounded-lg p-10 md:p-12 flex flex-col items-center justify-center gap-6 aspect-square hover:scale-[1.02] hover:bg-white/[0.06] transition-all duration-500 group">
-                <span
-                    class="material-symbols-outlined text-6xl md:text-7xl text-white/60 group-hover:text-white transition-colors">photo_camera</span>
+                <img src="icons/instagram.png" alt="Instagram"
+                    class="w-16 h-16 md:w-20 md:h-20 object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
                 <div class="text-center">
                     <h3 class="text-3xl md:text-4xl serif-regular text-white mb-2">Instagram</h3>
                     <p class="font-sans text-xs md:text-sm text-white/40 tracking-[0.2em] uppercase">@issac.vfx</p>
@@ -679,8 +764,8 @@
 
             <a href="https://www.artstation.com/issac1605" target="_blank" rel="noopener"
                 class="fade-up liquid-glass rounded-lg p-10 md:p-12 flex flex-col items-center justify-center gap-6 aspect-square hover:scale-[1.02] hover:bg-white/[0.06] transition-all duration-500 group">
-                <span
-                    class="material-symbols-outlined text-6xl md:text-7xl text-white/60 group-hover:text-white transition-colors">palette</span>
+                <img src="icons/artstation.png" alt="ArtStation"
+                    class="w-16 h-16 md:w-20 md:h-20 object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
                 <div class="text-center">
                     <h3 class="text-3xl md:text-4xl serif-regular text-white mb-2">ArtStation</h3>
                     <p class="font-sans text-xs md:text-sm text-white/40 tracking-[0.2em] uppercase">issac1605</p>
@@ -689,8 +774,8 @@
 
             <a href="https://x.com/Issac3d" target="_blank" rel="noopener"
                 class="fade-up liquid-glass rounded-lg p-10 md:p-12 flex flex-col items-center justify-center gap-6 aspect-square hover:scale-[1.02] hover:bg-white/[0.06] transition-all duration-500 group">
-                <span
-                    class="material-symbols-outlined text-6xl md:text-7xl text-white/60 group-hover:text-white transition-colors">alternate_email</span>
+                <img src="icons/x.png" alt="X"
+                    class="w-16 h-16 md:w-20 md:h-20 object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
                 <div class="text-center">
                     <h3 class="text-3xl md:text-4xl serif-regular text-white mb-2">X</h3>
                     <p class="font-sans text-xs md:text-sm text-white/40 tracking-[0.2em] uppercase">@Issac3d</p>
@@ -727,6 +812,39 @@
 
     <!-- ===================== SCRIPTS ===================== -->
     <script>
+        // Mobile menu toggle
+        (function () {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            if (!btn || !menu) return;
+
+            const close = () => {
+                menu.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+                if (icon) icon.textContent = 'menu';
+            };
+            const open = () => {
+                menu.classList.add('open');
+                btn.setAttribute('aria-expanded', 'true');
+                if (icon) icon.textContent = 'close';
+            };
+
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (menu.classList.contains('open')) close();
+                else open();
+            });
+
+            menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+
+            document.addEventListener('click', (e) => {
+                if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+                    close();
+                }
+            });
+        })();
+
         // Fade-in on scroll
         const fadeObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -964,14 +1082,22 @@
             fields.clientSection.style.display = isPersonal ? 'none' : '';
             fields.creditsSection.style.display = isPersonal ? 'none' : '';
             if (!isPersonal) {
-                fields.credits.innerHTML = '';
+                fields.credits.replaceChildren();
                 (data.credits || []).forEach(c => {
                     const li = document.createElement('li');
-                    li.innerHTML = `<span class="text-white/40 text-xs uppercase tracking-widest block">${c.role || ''}</span><span>${c.name || ''}</span>`;
+                    const roleSpan = document.createElement('span');
+                    roleSpan.className = 'text-white/40 text-xs uppercase tracking-widest block';
+                    roleSpan.textContent = c.role || '';
+                    const nameSpan = document.createElement('span');
+                    nameSpan.textContent = c.name || '';
+                    li.append(roleSpan, nameSpan);
                     fields.credits.appendChild(li);
                 });
                 if (!(data.credits && data.credits.length)) {
-                    fields.credits.innerHTML = '<li class="text-white/40">Credits coming soon.</li>';
+                    const placeholder = document.createElement('li');
+                    placeholder.className = 'text-white/40';
+                    placeholder.textContent = 'Credits coming soon.';
+                    fields.credits.replaceChildren(placeholder);
                 }
             }
 
@@ -1063,32 +1189,64 @@
 
         const otherList = document.getElementById('other-projects-list');
         if (otherList) {
+            // Valid YouTube video IDs are [A-Za-z0-9_-]{11}; allow slightly looser to match real-world
+            const isSafeYtId = (id) => typeof id === 'string' && /^[A-Za-z0-9_-]{6,20}$/.test(id);
+
             OTHER_PROJECTS.forEach(p => {
+                if (!isSafeYtId(p.id)) return;
+
                 const a = document.createElement('a');
                 a.href = `https://www.youtube.com/watch?v=${p.id}`;
                 a.target = '_blank';
                 a.rel = 'noopener';
                 a.className = 'fade-up group liquid-glass rounded-lg overflow-hidden flex flex-col sm:flex-row items-stretch gap-4 sm:gap-6 p-4 hover:scale-[1.005] hover:bg-white/[0.06] transition-all duration-300';
-                a.innerHTML = `
-                    <div class="relative w-full sm:w-64 md:w-72 aspect-video shrink-0 rounded-md overflow-hidden bg-black">
-                        <img src="https://img.youtube.com/vi/${p.id}/hqdefault.jpg"
-                             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${p.id}/mqdefault.jpg';"
-                             alt="${p.title}" loading="lazy"
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                                <span class="material-symbols-outlined text-2xl text-white">play_arrow</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex-1 flex flex-col justify-center px-2 sm:px-4 py-2">
-                        <div class="flex items-start justify-between gap-4 mb-2">
-                            <h4 class="text-2xl md:text-3xl serif-regular text-white leading-tight">${p.title}</h4>
-                            <span class="material-symbols-outlined text-white/30 group-hover:text-white/80 transition-colors shrink-0">open_in_new</span>
-                        </div>
-                        <p class="font-sans text-sm md:text-base text-white/50 leading-relaxed">${p.description}</p>
-                    </div>
-                `;
+
+                const thumbWrap = document.createElement('div');
+                thumbWrap.className = 'relative w-full sm:w-64 md:w-72 aspect-video shrink-0 rounded-md overflow-hidden bg-black';
+
+                const img = document.createElement('img');
+                img.src = `https://img.youtube.com/vi/${p.id}/hqdefault.jpg`;
+                img.alt = p.title || '';
+                img.loading = 'lazy';
+                img.className = 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-500';
+                img.addEventListener('error', function onErr() {
+                    this.removeEventListener('error', onErr);
+                    this.src = `https://img.youtube.com/vi/${p.id}/mqdefault.jpg`;
+                });
+
+                const playOverlay = document.createElement('div');
+                playOverlay.className = 'absolute inset-0 flex items-center justify-center';
+                const playCircle = document.createElement('div');
+                playCircle.className = 'w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/20 transition-colors';
+                const playIconEl = document.createElement('span');
+                playIconEl.className = 'material-symbols-outlined text-2xl text-white';
+                playIconEl.textContent = 'play_arrow';
+                playCircle.appendChild(playIconEl);
+                playOverlay.appendChild(playCircle);
+
+                thumbWrap.append(img, playOverlay);
+
+                const textWrap = document.createElement('div');
+                textWrap.className = 'flex-1 flex flex-col justify-center px-2 sm:px-4 py-2';
+
+                const titleRow = document.createElement('div');
+                titleRow.className = 'flex items-start justify-between gap-4 mb-2';
+                const titleEl = document.createElement('h4');
+                titleEl.className = 'text-2xl md:text-3xl serif-regular text-white leading-tight';
+                titleEl.textContent = p.title || '';
+                const extIcon = document.createElement('span');
+                extIcon.className = 'material-symbols-outlined text-white/30 group-hover:text-white/80 transition-colors shrink-0';
+                extIcon.textContent = 'open_in_new';
+                titleRow.append(titleEl, extIcon);
+
+                const descEl = document.createElement('p');
+                descEl.className = 'font-sans text-sm md:text-base text-white/50 leading-relaxed';
+                descEl.textContent = p.description || '';
+
+                textWrap.append(titleRow, descEl);
+
+                a.append(thumbWrap, textWrap);
+
                 otherList.appendChild(a);
                 fadeObserver.observe(a);
             });
@@ -1102,6 +1260,127 @@
                 heroFallback.style.opacity = '0';
             });
         }
+
+        // ===== SHOWREEL CUSTOM PLAYER =====
+        (function () {
+            const player = document.getElementById('showreel-player');
+            if (!player) return;
+
+            const video = document.getElementById('showreel-video');
+            const centerBtn = document.getElementById('showreel-center-btn');
+            const playBtn = document.getElementById('showreel-play-btn');
+            const playIcon = document.getElementById('showreel-play-icon');
+            const muteBtn = document.getElementById('showreel-mute-btn');
+            const muteIcon = document.getElementById('showreel-mute-icon');
+            const progress = document.getElementById('showreel-progress');
+            const progressFill = document.getElementById('showreel-progress-fill');
+            const progressThumb = document.getElementById('showreel-progress-thumb');
+            const timeLabel = document.getElementById('showreel-time');
+            const volBar = document.getElementById('showreel-vol-bar');
+            const volFill = document.getElementById('showreel-vol-fill');
+            const volThumb = document.getElementById('showreel-vol-thumb');
+
+            const fmt = (s) => {
+                if (!isFinite(s)) return '0:00';
+                const m = Math.floor(s / 60);
+                const r = Math.floor(s % 60).toString().padStart(2, '0');
+                return `${m}:${r}`;
+            };
+
+            const togglePlay = () => {
+                if (video.paused) video.play();
+                else video.pause();
+            };
+
+            const toggleMute = () => {
+                video.muted = !video.muted;
+                if (!video.muted && video.volume < 0.1) video.volume = 0.5;
+            };
+
+            // Click video to toggle play/pause
+            video.addEventListener('click', togglePlay);
+
+            // Control buttons
+            playBtn.addEventListener('click', (e) => { e.stopPropagation(); togglePlay(); });
+            muteBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleMute(); });
+
+            // Keep icons + center indicator in sync with video state
+            video.addEventListener('play', () => {
+                playIcon.textContent = 'pause';
+                centerBtn.classList.remove('paused');
+            });
+            video.addEventListener('pause', () => {
+                playIcon.textContent = 'play_arrow';
+                centerBtn.classList.add('paused');
+            });
+            const renderVolume = () => {
+                const effective = video.muted ? 0 : video.volume;
+                const pct = effective * 100;
+                volFill.style.width = pct + '%';
+                volThumb.style.left = pct + '%';
+                if (video.muted || video.volume === 0) muteIcon.textContent = 'volume_off';
+                else if (video.volume < 0.5) muteIcon.textContent = 'volume_down';
+                else muteIcon.textContent = 'volume_up';
+            };
+            video.addEventListener('volumechange', renderVolume);
+
+            // Time + progress updates
+            video.addEventListener('timeupdate', () => {
+                if (video.duration) {
+                    const pct = (video.currentTime / video.duration) * 100;
+                    progressFill.style.width = pct + '%';
+                    progressThumb.style.left = pct + '%';
+                    timeLabel.textContent = `${fmt(video.currentTime)} / ${fmt(video.duration)}`;
+                }
+            });
+            video.addEventListener('loadedmetadata', () => {
+                timeLabel.textContent = `0:00 / ${fmt(video.duration)}`;
+            });
+
+            // Seek via click / drag on progress bar
+            const seekToEvent = (e) => {
+                const rect = progress.getBoundingClientRect();
+                const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+                const pct = Math.max(0, Math.min(1, x / rect.width));
+                if (video.duration) video.currentTime = pct * video.duration;
+            };
+            let dragging = false;
+            progress.addEventListener('mousedown', (e) => { e.stopPropagation(); dragging = true; seekToEvent(e); });
+            document.addEventListener('mousemove', (e) => { if (dragging) seekToEvent(e); });
+            document.addEventListener('mouseup', () => { dragging = false; });
+            progress.addEventListener('touchstart', (e) => { e.stopPropagation(); seekToEvent(e); }, { passive: true });
+            progress.addEventListener('touchmove', (e) => { seekToEvent(e); }, { passive: true });
+
+            // Volume slider — click/drag to set volume
+            const setVolEvent = (e) => {
+                const rect = volBar.getBoundingClientRect();
+                const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+                const pct = Math.max(0, Math.min(1, x / rect.width));
+                video.volume = pct;
+                video.muted = pct === 0;
+            };
+            let volDragging = false;
+            volBar.addEventListener('mousedown', (e) => { e.stopPropagation(); volDragging = true; setVolEvent(e); });
+            document.addEventListener('mousemove', (e) => { if (volDragging) setVolEvent(e); });
+            document.addEventListener('mouseup', () => { volDragging = false; });
+            volBar.addEventListener('touchstart', (e) => { e.stopPropagation(); setVolEvent(e); }, { passive: true });
+            volBar.addEventListener('touchmove', (e) => { setVolEvent(e); }, { passive: true });
+
+            // Initialize volume display
+            video.volume = 0.5;
+            renderVolume();
+
+            // Mobile: tap anywhere on the player to reveal controls for 3s, then auto-hide
+            let hideTimer;
+            const flashControls = () => {
+                player.classList.add('controls-visible');
+                clearTimeout(hideTimer);
+                hideTimer = setTimeout(() => {
+                    player.classList.remove('controls-visible');
+                }, 3000);
+            };
+            player.addEventListener('touchstart', flashControls, { passive: true });
+        })();
     </script>
 
 </body>
