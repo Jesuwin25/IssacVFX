@@ -3,3 +3,10 @@ Asset/
 
 # Deploy output (only index.html gets copied here for Cloudflare Pages)
 dist/
+
+# Cloudflare Wrangler local state (contains account ID / miniflare cache)
+.wrangler/
+
+# Local working notes / drafts — not for public deploy
+prj_credits.txt
+reference.md
