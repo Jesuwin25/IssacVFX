@@ -160,6 +160,17 @@
             scroll-behavior: smooth;
         }
 
+        /* Discourage video saving: disable iOS long-press "Save Video" callout,
+           block text/image selection, and prevent drag-to-desktop. Does not
+           stop determined dev-tools users — just the casual paths. */
+        video {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
         body {
             background-color: #000000;
             color: #e2e2e2;
@@ -756,7 +767,10 @@
             <!-- Video player -->
             <div class="relative aspect-video w-full rounded-lg overflow-hidden bg-black mb-12 md:mb-16">
                 <video id="modal-video" class="w-full h-full object-contain" controls playsinline
-                    preload="metadata"></video>
+                    preload="metadata"
+                    controlslist="nodownload noplaybackrate noremoteplayback"
+                    disablepictureinpicture
+                    oncontextmenu="return false;"></video>
             </div>
 
             <!-- Details -->
@@ -1449,6 +1463,19 @@
                 }, 3000);
             };
             player.addEventListener('touchstart', flashControls, { passive: true });
+        })();
+
+        // Block right-click context menu, drag-to-save, and long-press save on all videos.
+        // The video bytes still travel to the browser, so dev-tools users can always pull
+        // the R2 URL — but this stops the casual "Save Video As" / "Save Frame As" paths.
+        (function protectVideos() {
+            const block = (e) => { e.preventDefault(); return false; };
+            document.addEventListener('contextmenu', (e) => {
+                if (e.target && e.target.tagName === 'VIDEO') block(e);
+            }, { capture: true });
+            document.addEventListener('dragstart', (e) => {
+                if (e.target && e.target.tagName === 'VIDEO') block(e);
+            }, { capture: true });
         })();
     </script>
 
