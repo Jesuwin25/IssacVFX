@@ -275,6 +275,22 @@
         #showreel-center-btn.paused {
             opacity: 1 !important;
         }
+
+        /* Letterbox the showreel inside fullscreen so nothing is cropped */
+        #showreel-player:fullscreen,
+        #showreel-player:-webkit-full-screen {
+            background: #000;
+        }
+        #showreel-player:fullscreen video,
+        #showreel-player:-webkit-full-screen video {
+            object-fit: contain;
+        }
+        /* Keep the custom controls visible in fullscreen on desktop */
+        #showreel-player:fullscreen #showreel-controls,
+        #showreel-player:-webkit-full-screen #showreel-controls {
+            opacity: 1;
+            pointer-events: auto;
+        }
     </style>
 </head>
 
@@ -402,22 +418,28 @@
                         </button>
                         <span id="showreel-time" class="font-sans text-xs text-white/60 tabular-nums">0:00 / 0:00</span>
                     </div>
-                    <div class="flex items-center gap-2 group/vol">
-                        <button id="showreel-mute-btn" aria-label="Mute/Unmute"
-                            class="text-white/80 hover:text-white transition-colors flex items-center">
-                            <span class="material-symbols-outlined text-[28px]" id="showreel-mute-icon">volume_off</span>
-                        </button>
-                        <div id="showreel-vol-wrap"
-                            class="w-20 md:w-0 md:group-hover/vol:w-20 overflow-hidden transition-all duration-300">
-                            <div id="showreel-vol-bar"
-                                class="relative h-1 w-20 bg-white/20 rounded-full cursor-pointer group/vb">
-                                <div id="showreel-vol-fill" class="absolute top-0 left-0 h-full bg-white rounded-full"
-                                    style="width: 0%"></div>
-                                <div id="showreel-vol-thumb"
-                                    class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white opacity-0 group-hover/vb:opacity-100 transition-opacity"
-                                    style="left: 0%"></div>
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-2 group/vol">
+                            <button id="showreel-mute-btn" aria-label="Mute/Unmute"
+                                class="text-white/80 hover:text-white transition-colors flex items-center">
+                                <span class="material-symbols-outlined text-[28px]" id="showreel-mute-icon">volume_off</span>
+                            </button>
+                            <div id="showreel-vol-wrap"
+                                class="w-20 md:w-0 md:group-hover/vol:w-20 overflow-hidden transition-all duration-300">
+                                <div id="showreel-vol-bar"
+                                    class="relative h-1 w-20 bg-white/20 rounded-full cursor-pointer group/vb">
+                                    <div id="showreel-vol-fill" class="absolute top-0 left-0 h-full bg-white rounded-full"
+                                        style="width: 0%"></div>
+                                    <div id="showreel-vol-thumb"
+                                        class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white opacity-0 group-hover/vb:opacity-100 transition-opacity"
+                                        style="left: 0%"></div>
+                                </div>
                             </div>
                         </div>
+                        <button id="showreel-fs-btn" aria-label="Fullscreen"
+                            class="text-white/80 hover:text-white transition-colors flex items-center">
+                            <span class="material-symbols-outlined text-[28px]" id="showreel-fs-icon">fullscreen</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1386,6 +1408,27 @@
             // Control buttons
             playBtn.addEventListener('click', (e) => { e.stopPropagation(); togglePlay(); });
             muteBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleMute(); });
+
+            // Fullscreen — target the player wrapper so our custom controls stay visible.
+            // iOS iPhone's Safari only supports fullscreen on the <video> itself, so fall back there.
+            const fsBtn = document.getElementById('showreel-fs-btn');
+            const fsIcon = document.getElementById('showreel-fs-icon');
+            const isFullscreen = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+            const toggleFullscreen = () => {
+                if (isFullscreen()) {
+                    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+                    return;
+                }
+                if (player.requestFullscreen) player.requestFullscreen();
+                else if (player.webkitRequestFullscreen) player.webkitRequestFullscreen();
+                else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+            };
+            const syncFsIcon = () => {
+                fsIcon.textContent = isFullscreen() ? 'fullscreen_exit' : 'fullscreen';
+            };
+            fsBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFullscreen(); });
+            document.addEventListener('fullscreenchange', syncFsIcon);
+            document.addEventListener('webkitfullscreenchange', syncFsIcon);
 
             // Keep icons + center indicator in sync with video state
             video.addEventListener('play', () => {
