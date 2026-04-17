@@ -1,0 +1,10 @@
+name = "issacvfx-media"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+R2_PUBLIC_BASE = "https://pub-2bc2cab855a64c1d81823ac676d15d52.r2.dev"
+
+[[routes]]
+pattern = "media.issacvfx.com"
+custom_domain = true
