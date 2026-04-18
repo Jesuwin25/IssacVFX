@@ -1131,22 +1131,38 @@
             "frozen-bottle": {
                 title: "Frozen Bottle",
                 category: "3D / 2D VFX",
-                client: "—",
+                client: "Razor Pay",
                 year: "—",
-                role: "3D / VFX",
+                role: "CG",
                 software: "—",
                 description: "Contributed to a frozen bottle commercial, focusing on a key animated sequence. Developed a transformation shot where the bottle forms and takes flight using a mix of 3D and 2D elements. Crafted to achieve a visually engaging and creative transition within the overall film.",
-                credits: []
+                credits: [
+                    { role: "Client", name: "Razor Pay" },
+                    { role: "Product", name: "Fave" },
+                    { role: "Production House", name: "Go Films" },
+                    { role: "Directors", name: "Sathya & Deepak Ethiraj" },
+                    { role: "D.O.P", name: "Ganesh" },
+                    { role: "Art", name: "Manimozhian Ramadurai" },
+                    { role: "CG", name: "Issac" },
+                    { role: "A.D", name: "Silva & Deva" },
+                    { role: "Editor", name: "Kiruba" },
+                    { role: "Audio Studio", name: "VOICcEe store" },
+                    { role: "Line Producer", name: "Vignesh Vicky" }
+                ]
             },
             "hyd-vik": {
                 title: "Hyderabad Vikings",
                 category: "Logo Animation",
                 client: "Hyderabad Vikings",
                 year: "—",
-                role: "3D / Motion",
+                role: "Director / CG",
                 software: "—",
                 description: "This project brings the Hyderabad Vikings logo to life through sleek neon-driven animation. Dark tones combined with glowing accents create an intense, competitive atmosphere. Crafted to reflect the team's energy, strength, and modern sporting identity.",
-                credits: []
+                credits: [
+                    { role: "Client", name: "Hyderabad Vikings" },
+                    { role: "Agency", name: "Action&co" },
+                    { role: "Director / CG", name: "Issac" }
+                ]
             },
             "personal-project": {
                 title: "Personal Projects",
@@ -1279,7 +1295,7 @@
         // ===== OTHER PROJECTS (YouTube bars) =====
         const OTHER_PROJECTS = [
             { id: "3E5ry-cSCEA", title: "Thalapathy 68 — Announcement", description: "Official announcement teaser for Thalapathy 68, a Venkat Prabhu film produced by AGS Entertainment with music by Yuvan Shankar Raja." },
-            { divider: true, label: "Works done while at Mangopost as 3D Generalist — 2020 to 2023" },
+            { divider: true, label: "Works done while at Mangopost as 3D Generalist — 2020 to 2023", note: "Final outputs are owned by respective clients." },
             { id: "E3_cz3uv43c", title: "Game Changer", description: "Feature-film VFX contribution for the Shankar-directed action drama starring Ram Charan, music by Thaman S." },
             { id: "-1slidkZ_c0", title: "Team Maaveeran wishes Team India — 44th Chess Olympiad", description: "Special film where the Maaveeran team sends wishes to Team India at the 44th Chess Olympiad, Chennai." },
             { id: "_HFxZi00HlE", title: "New XSEED — A better way to teach", description: "Brand launch film for New XSEED, presented in Tamil with English subtitles." },
@@ -1300,8 +1316,10 @@
 
             OTHER_PROJECTS.forEach(p => {
                 if (p.divider) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'fade-up flex flex-col pt-6 pb-2';
                     const divider = document.createElement('div');
-                    divider.className = 'fade-up flex items-center gap-4 pt-6 pb-2';
+                    divider.className = 'flex items-center gap-4';
                     const lineL = document.createElement('span');
                     lineL.className = 'flex-1 h-px bg-white/10';
                     const label = document.createElement('span');
@@ -1310,8 +1328,15 @@
                     const lineR = document.createElement('span');
                     lineR.className = 'flex-1 h-px bg-white/10';
                     divider.append(lineL, label, lineR);
-                    otherList.appendChild(divider);
-                    fadeObserver.observe(divider);
+                    wrapper.appendChild(divider);
+                    if (p.note) {
+                        const note = document.createElement('span');
+                        note.className = 'font-sans text-[11px] md:text-xs tracking-wide text-white/30 text-center mt-2 italic';
+                        note.textContent = p.note;
+                        wrapper.appendChild(note);
+                    }
+                    otherList.appendChild(wrapper);
+                    fadeObserver.observe(wrapper);
                     return;
                 }
 
